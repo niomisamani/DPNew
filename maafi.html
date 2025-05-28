@@ -1,1 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry Khushan 💔</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .apology-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: cardFloat 6s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .title {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .emoji {
+            font-size: 4rem;
+            animation: emojiSpin 3s linear infinite;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        @keyframes emojiSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin: 30px 0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            min-width: 150px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .forgive-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .forgive-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(76, 175, 80, 0.4);
+        }
+
+        .punish-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .punish-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .forgiveness-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 40px;
+            border-radius: 30px;
+            animation: celebrationPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes celebrationPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .punishment-screen {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            color: #333;
+            text-align: center;
+            padding: 40px;
+            border-radius: 30px;
+        }
+
+        .punishment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .punishment-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .punishment-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 107, 107, 0.3);
+        }
+
+        .final-message {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            color: #2d3436;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            animation: finalGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes finalGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 234, 167, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 234, 167, 0.8); }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 192, 203, 0.7);
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .gif-container {
+            margin: 20px 0;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gif-embed {
+            max-width: 100%;
+            border-radius: 15px;
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(116, 185, 255, 0.3);
+        }
+
+        .tenor-gif-embed {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            .title { font-size: 2rem; }
+            .buttons { flex-direction: column; align-items: center; }
+            .punishment-options { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="hearts"></div>
+    
+    <div class="container">
+        <!-- Main Apology Screen -->
+        <div class="apology-card" id="mainScreen">
+            <h1 class="title">Sorry Khushan! 😔</h1>
+            <div class="emoji">💔</div>
+            <div class="message">
+                <p>Hey Khushan! 👋</p>
+                <p>I know you're upset with me because I haven't been taking care of myself properly. You're absolutely right to be concerned, and I'm really sorry for making you worry about me. 😞</p>
+                <p>I realize that when I don't take care of myself, it affects not just me but also the people who care about me - like you! 💙</p>
+                <p>I promise to do better and start taking better care of my health, sleep, and overall well-being. Your friendship means the world to me! 🌟</p>
+            </div>
+            <div class="gif-container">
+                <div class="tenor-gif-embed" data-postid="1732151111165123677" data-share-method="host" data-aspect-ratio="0.981928" data-width="100%"><a href="https://tenor.com/view/love-gif-1732151111165123677">Love GIF</a>from <a href="https://tenor.com/search/love-gifs">Love GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            </div>
+            <div class="buttons">
+                <button class="btn forgive-btn" onclick="showForgiveness()">
+                    💖 Forgive You
+                </button>
+                <button class="btn punish-btn" onclick="showPunishment()">
+                    😤 Punish You
+                </button>
+            </div>
+        </div>
+
+        <!-- Forgiveness Screen -->
+        <div class="apology-card forgiveness-screen hidden" id="forgivenessScreen">
+            <h1 style="font-size: 3rem; margin-bottom: 30px;">Thank You Khushan! 🥰</h1>
+            <div style="font-size: 5rem; margin: 20px 0;">💖✨🎉</div>
+            <p style="font-size: 1.5rem; line-height: 1.8;">
+                You're the best friend ever! I promise I'll take better care of myself from now on. 
+                Your forgiveness means everything to me! 🌟
+            </p>
+            <div class="gif-container">
+                <div class="tenor-gif-embed" data-postid="14580681502774806591" data-share-method="host" data-aspect-ratio="1" data-width="100%"><a href="https://tenor.com/view/thanks-thanks-alot-thanks-a-lot-thanks-so-much-thank-you-gif-14580681502774806591">Thanks Thanks Alot Sticker</a>from <a href="https://tenor.com/search/thanks-stickers">Thanks Stickers</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+            </div>
+            <p style="font-size: 1.2rem; margin-top: 30px; color: #ffeb3b;">
+                I'll start eating better, sleeping on time, and taking care of my mental health! 💪
+            </p>
+            <button class="back-btn" onclick="goBack()">Go Back</button>
+        </div>
+
+        <!-- Punishment Screen -->
+        <div class="apology-card punishment-screen hidden" id="punishmentScreen">
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Choose My Punishment 😅</h1>
+            <div style="font-size: 4rem; margin: 20px 0;">⚡👿⚡</div>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">
+                I deserve it for not taking care of myself. Pick how you want to punish me!
+            </p>
+            <div class="punishment-options">
+                <button class="punishment-btn" onclick="showFinalMessage('write10')">
+                    ✍️ Write "I will take care of myself" 10 times
+                </button>
+                <button class="punishment-btn" onclick="showFinalMessage('corner10')">
+                    🕐 Stand in corner for 10 minutes
+                </button>
+                <button class="punishment-btn" onclick="showFinalMessage('noScreens')">
+                    📵 No screens for 1 hour
+                </button>
+                <button class="punishment-btn" onclick="showFinalMessage('holdEars')">
+                    🙉 Hold ears and say sorry 5 times
+                </button>
+                <button class="punishment-btn" onclick="showFinalMessage('situps')">
+                    💪 Do 10 sit-ups
+                </button>
+                <button class="punishment-btn" onclick="showFinalMessage('murga')">
+                    🐔 Become a murga (chicken pose) for 2 minutes
+                </button>
+            </div>
+        </div>
+
+        <!-- Final Message Screen -->
+        <div class="apology-card final-message hidden" id="finalScreen">
+            <h1 style="font-size: 2.5rem; margin-bottom: 30px;">Deal! 🤝</h1>
+            <div style="font-size: 4rem; margin: 20px 0;">😄✨</div>
+            <p style="font-size: 1.3rem; line-height: 1.8;" id="finalText">
+                <!-- Dynamic content will be inserted here -->
+            </p>
+            <div class="gif-container" id="finalGifContainer">
+                <!-- GIF will be inserted here -->
+            </div>
+            <p style="font-size: 1.1rem; margin-top: 20px; color: #e74c3c;">
+                And I promise to take better care of myself! Thanks for caring about me, Khushan! 💙
+            </p>
+            <button class="back-btn" onclick="goBack()">Go Back</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    <script>
+        function showForgiveness() {
+            document.getElementById('mainScreen').classList.add('hidden');
+            document.getElementById('forgivenessScreen').classList.remove('hidden');
+            createHearts();
+        }
+
+        function showPunishment() {
+            document.getElementById('mainScreen').classList.add('hidden');
+            document.getElementById('punishmentScreen').classList.remove('hidden');
+        }
+
+        function showFinalMessage(type) {
+            const messages = {
+                write10: "Alright! I'll write 'I will take care of myself' 10 times with full dedication! 📜✍️",
+                corner10: "Corner time! I'll stand in the corner for 10 whole minutes. No complaints! 🕐😅",
+                noScreens: "No screens for 1 hour it is! Time to detox and maybe read a book. 📵📚",
+                holdEars: "Holding ears and saying sorry 5 times. KP will be proud! 🙉🙏",
+                situps: "Doing 10 sit-ups now! Getting fit and taking care of myself! 💪😅",
+                murga: "Time to become a murga (chicken pose) for 2 minutes! KukduKu! 🐔😄"
+            };
+
+            const gifs = {
+                write10: '<img src="https://media1.tenor.com/m/g_hqItTbdVoAAAAC/love-you.gif" alt="Writing punishment" class="gif-embed">',
+                corner10: '<img src="https://media1.tenor.com/m/k3pjlTQcEeMAAAAd/punished-corner.gif" alt="Corner time" class="gif-embed">',
+                noScreens: '<img src="https://media1.tenor.com/m/PwbpcH6RgI4AAAAd/shut-up-bad-words.gif" alt="No screens" class="gif-embed">',
+                holdEars: '<img src="https://media1.tenor.com/m/dUqNbHojsY0AAAAd/kuch-rang-pyar-ke-aise-bhi-krpkab.gif" alt="Holding ears" class="gif-embed">',
+                situps: '<img src="https://media1.tenor.com/m/n4bBYrZBxLEAAAAd/uthak-baithak-karna-sidharth-malhotra.gif" alt="Doing sit-ups" class="gif-embed">',
+                murga: '<img src="https://media1.tenor.com/m/8qFJ5f4Yjh0AAAAd/murga-murgha.gif" alt="Murga pose" class="gif-embed">'
+            };
+
+            document.getElementById('finalText').innerHTML = messages[type];
+            document.getElementById('finalGifContainer').innerHTML = gifs[type];
+            document.getElementById('punishmentScreen').classList.add('hidden');
+            document.getElementById('finalScreen').classList.remove('hidden');
+        }
+
+        function goBack() {
+            document.getElementById('forgivenessScreen').classList.add('hidden');
+            document.getElementById('punishmentScreen').classList.add('hidden');
+            document.getElementById('finalScreen').classList.add('hidden');
+            document.getElementById('mainScreen').classList.remove('hidden');
+        }
+
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '💖';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heartsContainer.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 6000);
+                }, i * 300);
+            }
+        }
+
+        // Add some floating hearts periodically
+        setInterval(createHearts, 10000);
+    </script>
+</body>
+</html>
 
