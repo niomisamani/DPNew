@@ -163,7 +163,7 @@
       border: 1px solid rgba(255, 105, 180, 0.2);
     }
 
-    /* LILY SCENE */
+    /* LILY SCENE - FIXED */
     #scene-lily {
       min-height: 80vh;
       display: flex;
@@ -206,7 +206,7 @@
       font-size: 1.1rem;
     }
 
-    /* BALLOONS SCENE WITH CAROUSEL */
+    /* BALLOONS SCENE */
     #scene-balloons {
       min-height: 80vh;
       display: flex;
@@ -276,16 +276,27 @@
       position: relative;
     }
 
-    /* IMAGE CAROUSEL - full screen background */
-    .image-carousel {
-      position: fixed;
-      top: 0;
-      left: 0;
+    /* CAROUSEL - Appears after balloons are popped */
+    #carousel-scene {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: radial-gradient(ellipse at center, #1a0a1e, #0d0512);
+      position: relative;
+    }
+    .carousel-container {
+      position: relative;
       width: 100%;
-      height: 100%;
-      z-index: 1;
+      max-width: 700px;
+      height: 450px;
+      margin: 20px auto;
+      border-radius: 24px;
       overflow: hidden;
-      background: #1a0a1e;
+      box-shadow: 0 20px 60px rgba(255, 20, 147, 0.3), 0 0 80px rgba(255, 20, 147, 0.1);
+      border: 3px solid rgba(255,255,255,0.1);
     }
     .carousel-slide {
       position: absolute;
@@ -295,37 +306,79 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 1.5s ease;
-      filter: brightness(0.7) saturate(1.2);
+      transition: opacity 0.8s ease;
     }
     .carousel-slide.active {
       opacity: 1;
     }
-    .carousel-slide::after {
-      content: '';
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-size: 2.5rem;
+      padding: 8px 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.3s ease;
+      touch-action: manipulation;
+      user-select: none;
+    }
+    .carousel-btn:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-50%) scale(1.05);
+    }
+    .carousel-btn:active { transform: translateY(-50%) scale(0.95); }
+    .carousel-btn.prev { left: 16px; }
+    .carousel-btn.next { right: 16px; }
+    .carousel-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .carousel-dot.active {
+      background: #FF69B4;
+      border-color: #FF69B4;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    }
+    .carousel-glow {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(ellipse at center, rgba(255,105,180,0.15), transparent 70%);
-      pointer-events: none;
-    }
-    /* Glow overlay for carousel */
-    .carousel-glow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
       pointer-events: none;
       background: radial-gradient(ellipse at center, rgba(255,20,147,0.08), transparent 60%);
-      animation: glowPulse 3s ease-in-out infinite;
+      z-index: 5;
     }
-    @keyframes glowPulse {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.8; }
+    .carousel-title {
+      color: #FFF8E8;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 2rem;
+      text-shadow: 0 2px 20px rgba(255,20,147,0.3);
+      margin-bottom: 10px;
+    }
+    .carousel-sub {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      margin-bottom: 10px;
     }
 
     /* CAKE SCENE */
@@ -608,12 +661,13 @@
       .popup-content h2 { font-size: 2rem; }
       .balloon { width: 55px; height: 70px; font-size: 9px; }
       #lily-container { width: 180px; height: 180px; }
+      .carousel-container { height: 300px; }
+      .carousel-btn { font-size: 1.8rem; padding: 4px 12px; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .mouse-doodle { animation: none; }
       #lily-container img { animation: none; }
-      .carousel-glow { animation: none; }
     }
   </style>
 </head>
@@ -636,24 +690,32 @@
   <!-- LILY SCENE -->
   <div id="scene-lily" class="hidden">
     <div id="lily-container">
-      <img src="https://www.google.com/search?q=lily+flower&tbm=isch&tbs=rimg:CRX7XfYzr3M4YYBfYVYF5CwQ&hl=en&sa=X&ved=0CAIQrnZqFwoTCJCqjqS_zIsDFQAAAAAdAAAAABAC" alt="Beautiful Lily" id="lilyImage" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Lilium_bulbiferum_flower.jpg/640px-Lilium_bulbiferum_flower.jpg'">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Lilium_bulbiferum_flower.jpg/640px-Lilium_bulbiferum_flower.jpg" alt="Beautiful Lily" id="lilyImage">
     </div>
     <div class="lily-text">🌷 For you, Darshan 🌷</div>
     <div class="lily-sub">A little flower before the fun begins...</div>
     <button class="btn-primary" id="btnLilyNext" style="margin-top:30px;">🎈 Let's Pop Some Balloons!</button>
   </div>
 
-  <!-- BALLOONS SCENE WITH CAROUSEL -->
+  <!-- BALLOONS SCENE -->
   <div id="scene-balloons" class="hidden">
-    <!-- Image Carousel Background -->
-    <div class="image-carousel" id="imageCarousel">
-      <div class="carousel-glow"></div>
-    </div>
-    
-    <h2 style="font-family:'Patrick Hand',cursive; color:#FFF8E8; font-size:2.2rem; text-shadow:0 2px 20px rgba(255,20,147,0.5); position:relative; z-index:15;">Pop the balloons! 🎈</h2>
-    <p style="color:#FFF8E8; margin-bottom:10px; text-shadow:0 2px 10px rgba(0,0,0,0.3); position:relative; z-index:15;">Each one has a little message for you.</p>
+    <h2 style="font-family:'Patrick Hand',cursive; color:#6A0572; font-size:2.2rem;">Pop the balloons! 🎈</h2>
+    <p style="color:#6A0572; margin-bottom:10px;">Each one has a little message for you.</p>
     <div id="balloon-container"></div>
-    <div class="balloon-progress" id="balloonProgress" style="color:#FFF8E8; text-shadow:0 2px 10px rgba(0,0,0,0.3);">0 / 7 popped</div>
+    <div class="balloon-progress" id="balloonProgress">0 / 7 popped</div>
+  </div>
+
+  <!-- CAROUSEL SCENE (appears after balloons) -->
+  <div id="carousel-scene" class="hidden">
+    <div class="carousel-title">📸 Memories with Darshan</div>
+    <div class="carousel-sub">Swipe or use arrows to browse</div>
+    <div class="carousel-container" id="carouselContainer">
+      <div class="carousel-glow"></div>
+      <button class="carousel-btn prev" id="carouselPrev">‹</button>
+      <button class="carousel-btn next" id="carouselNext">›</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+    <button class="btn-primary" id="btnCarouselNext" style="margin-top:20px;">🎂 Next: Make a Wish!</button>
   </div>
 
   <!-- CAKE SCENE -->
@@ -729,6 +791,7 @@
   const sceneEnvelope = document.getElementById('scene-envelope');
   const sceneLily = document.getElementById('scene-lily');
   const sceneBalloons = document.getElementById('scene-balloons');
+  const sceneCarousel = document.getElementById('carousel-scene');
   const sceneCake = document.getElementById('scene-cake');
   const sceneLetter = document.getElementById('scene-letter');
   const balloonContainer = document.getElementById('balloon-container');
@@ -740,7 +803,9 @@
   const btnBlow = document.getElementById('btnBlow');
   const blowMessage = document.getElementById('blowMessage');
   const btnLilyNext = document.getElementById('btnLilyNext');
-  const imageCarousel = document.getElementById('imageCarousel');
+  const btnCarouselNext = document.getElementById('btnCarouselNext');
+  const carouselContainer = document.getElementById('carouselContainer');
+  const carouselDots = document.getElementById('carouselDots');
 
   let W, H;
   const resizeCanvas = () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; };
@@ -768,9 +833,9 @@
   let celebrationShown = false;
 
   // Carousel state
-  let carouselInterval = null;
   let currentSlide = 0;
   const totalSlides = 6;
+  let carouselImages = [];
 
   // --- ENVELOPE OPEN ---
   function openEnvelope() {
@@ -782,7 +847,6 @@
     setTimeout(() => {
       sceneEnvelope.classList.add('hidden');
       sceneLily.classList.remove('hidden');
-      // Start background music
       bgMusic.play().catch(() => {});
       musicPlaying = true;
       document.getElementById('playPauseBtn').textContent = '⏸️';
@@ -796,48 +860,7 @@
     sceneLily.classList.add('hidden');
     sceneBalloons.classList.remove('hidden');
     initBalloons();
-    initCarousel();
   });
-
-  // --- IMAGE CAROUSEL ---
-  function initCarousel() {
-    // Clear existing slides
-    const existingSlides = imageCarousel.querySelectorAll('.carousel-slide');
-    existingSlides.forEach(s => s.remove());
-    
-    // Create 6 slides with JPEG images
-    for (let i = 1; i <= totalSlides; i++) {
-      const img = document.createElement('img');
-      img.className = 'carousel-slide';
-      if (i === 1) img.classList.add('active');
-      img.src = `assets/${i}.jpeg`;
-      img.alt = `Photo ${i}`;
-      img.onerror = function() {
-        // Fallback to a colorful gradient if image fails
-        this.style.display = 'none';
-        const fallback = document.createElement('div');
-        fallback.className = 'carousel-slide';
-        if (i === 1) fallback.classList.add('active');
-        fallback.style.background = `linear-gradient(135deg, hsl(${i * 60}, 80%, 60%), hsl(${i * 60 + 40}, 80%, 40%))`;
-        fallback.style.display = 'block';
-        this.parentNode.appendChild(fallback);
-        this.remove();
-      };
-      imageCarousel.appendChild(img);
-    }
-    
-    // Start carousel rotation
-    if (carouselInterval) clearInterval(carouselInterval);
-    carouselInterval = setInterval(nextSlide, 3000);
-  }
-
-  function nextSlide() {
-    const slides = imageCarousel.querySelectorAll('.carousel-slide');
-    if (slides.length === 0) return;
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-  }
 
   // --- BALLOONS (VIBRANT COLORS) ---
   const balloonMessages = [
@@ -904,17 +927,10 @@
     setTimeout(() => {
       el.style.display = 'none';
       if (balloonsPopped === totalBalloons) {
-        // Stop carousel
-        if (carouselInterval) {
-          clearInterval(carouselInterval);
-          carouselInterval = null;
-        }
         setTimeout(() => {
           sceneBalloons.classList.add('hidden');
-          // Remove carousel background
-          imageCarousel.innerHTML = '';
-          sceneCake.classList.remove('hidden');
-          blowMessage.textContent = '🎤 Now blow the candles!';
+          sceneCarousel.classList.remove('hidden');
+          initCarousel();
           spawnConfetti(80, {x: window.innerWidth/2, y: window.innerHeight/2});
         }, 400);
       }
@@ -924,6 +940,139 @@
   function updateProgress() {
     balloonProgress.textContent = `${balloonsPopped} / ${totalBalloons} popped`;
   }
+
+  // --- IMAGE CAROUSEL ---
+  function initCarousel() {
+    // Clear existing slides
+    const existingSlides = carouselContainer.querySelectorAll('.carousel-slide');
+    existingSlides.forEach(s => s.remove());
+    carouselDots.innerHTML = '';
+    carouselImages = [];
+
+    // Create 6 slides with JPEG images
+    for (let i = 1; i <= totalSlides; i++) {
+      const img = document.createElement('img');
+      img.className = 'carousel-slide';
+      if (i === 1) img.classList.add('active');
+      img.src = `assets/${i}.jpeg`;
+      img.alt = `Photo ${i}`;
+      img.onerror = function() {
+        this.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.className = 'carousel-slide';
+        if (i === 1) fallback.classList.add('active');
+        fallback.style.background = `linear-gradient(135deg, hsl(${i * 60}, 80%, 60%), hsl(${i * 60 + 40}, 80%, 40%))`;
+        fallback.style.display = 'block';
+        fallback.style.width = '100%';
+        fallback.style.height = '100%';
+        this.parentNode.insertBefore(fallback, this);
+        this.remove();
+      };
+      carouselContainer.insertBefore(img, carouselContainer.querySelector('.carousel-glow'));
+      carouselImages.push(img);
+    }
+
+    // Create dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'carousel-dot';
+      if (i === 0) dot.classList.add('active');
+      dot.dataset.index = i;
+      dot.addEventListener('click', function() {
+        goToSlide(parseInt(this.dataset.index));
+      });
+      carouselDots.appendChild(dot);
+    }
+
+    currentSlide = 0;
+  }
+
+  function goToSlide(index) {
+    const slides = carouselContainer.querySelectorAll('.carousel-slide');
+    const dots = carouselDots.querySelectorAll('.carousel-dot');
+    if (slides.length === 0) return;
+    
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+
+  function nextSlide() {
+    goToSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    goToSlide(currentSlide - 1);
+  }
+
+  // Carousel controls
+  document.getElementById('carouselPrev').addEventListener('click', prevSlide);
+  document.getElementById('carouselNext').addEventListener('click', nextSlide);
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (!sceneCarousel.classList.contains('hidden')) {
+      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') nextSlide();
+    }
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  carouselContainer.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+  carouselContainer.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  }, {passive: true});
+
+  // Auto-play carousel
+  let autoPlayInterval = null;
+  function startAutoPlay() {
+    if (autoPlayInterval) clearInterval(autoPlayInterval);
+    autoPlayInterval = setInterval(nextSlide, 4000);
+  }
+  function stopAutoPlay() {
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = null;
+    }
+  }
+
+  // Start auto-play when carousel becomes visible
+  const carouselObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        if (!sceneCarousel.classList.contains('hidden')) {
+          startAutoPlay();
+        } else {
+          stopAutoPlay();
+        }
+      }
+    });
+  });
+  carouselObserver.observe(sceneCarousel, {attributes: true});
+
+  // Also start when carousel is initialized
+  setTimeout(startAutoPlay, 500);
+
+  // Carousel Next button
+  btnCarouselNext.addEventListener('click', function() {
+    stopAutoPlay();
+    sceneCarousel.classList.add('hidden');
+    sceneCake.classList.remove('hidden');
+    blowMessage.textContent = '🎤 Now blow the candles!';
+    spawnConfetti(60, {x: window.innerWidth/2, y: window.innerHeight/2});
+  });
 
   // --- CANDLES (Blow button handles everything) ---
   async function startMic() {
