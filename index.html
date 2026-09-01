@@ -10,9 +10,9 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: linear-gradient(135deg, #ff6b9d, #ff1493, #ff69b4);
+      background: linear-gradient(135deg, #f8e8ff, #e8d5f5, #d4b8e0);
       font-family: 'Quicksand', sans-serif;
-      color: #fff;
+      color: #2D0A4E;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -27,7 +27,7 @@
     }
     .hidden { display: none !important; }
 
-    /* ENVELOPE - VIBRANT */
+    /* ENVELOPE */
     #scene-envelope {
       display: flex;
       flex-direction: column;
@@ -50,10 +50,10 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background: linear-gradient(145deg, #ffd700, #ffb300);
+      background: linear-gradient(145deg, #ffd700, #f5c800);
       border-radius: 18px 18px 10px 10px;
-      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5), 0 4px 12px rgba(0,0,0,0.1);
-      border: 3px solid #ff8f00;
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3), 0 4px 12px rgba(0,0,0,0.1);
+      border: 3px solid #e6b800;
       transition: all 0.5s ease;
       display: flex;
       flex-direction: column;
@@ -71,8 +71,8 @@
       height: 0;
       border-left: 45px solid transparent;
       border-right: 45px solid transparent;
-      border-bottom: 32px solid #ffb300;
-      filter: drop-shadow(0 -2px 6px rgba(255,215,0,0.3));
+      border-bottom: 32px solid #f5c800;
+      filter: drop-shadow(0 -2px 6px rgba(255,215,0,0.2));
     }
     .envelope .flap {
       position: absolute;
@@ -80,13 +80,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(145deg, #ffd700, #ffb300);
+      background: linear-gradient(145deg, #ffd700, #f5c800);
       border-radius: 18px 18px 10px 10px;
       clip-path: polygon(0 0, 100% 0, 50% 60%);
       transform-origin: top;
       transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
       z-index: 2;
-      border-bottom: 3px solid #ff8f00;
+      border-bottom: 3px solid #e6b800;
       box-shadow: inset 0 -4px 8px rgba(255,215,0,0.1);
     }
     .envelope.open .flap { transform: rotateX(180deg); }
@@ -94,22 +94,22 @@
       position: absolute;
       top: 14px;
       right: 18px;
-      background: linear-gradient(145deg, #ff1493, #ff69b4);
+      background: linear-gradient(145deg, #ff6b9d, #ff1493);
       color: #fff;
       font-size: 12px;
       font-weight: 700;
       padding: 5px 14px;
       border-radius: 40px;
       letter-spacing: 1.5px;
-      box-shadow: 0 3px 10px rgba(255, 20, 147, 0.4);
+      box-shadow: 0 3px 10px rgba(255, 20, 147, 0.3);
       z-index: 3;
       border: 1px solid #ff1493;
     }
     .envelope .to-label {
       font-family: 'Patrick Hand', cursive;
       font-size: 28px;
-      color: #6A0572;
-      background: rgba(255, 255, 255, 0.8);
+      color: #2D0A4E;
+      background: rgba(255, 255, 255, 0.85);
       padding: 6px 24px;
       border-radius: 60px;
       z-index: 1;
@@ -134,14 +134,14 @@
     }
     .envelope.open .letter-inside { opacity: 1; }
     .btn-primary {
-      background: linear-gradient(145deg, #00ff7f, #00cc66);
+      background: linear-gradient(145deg, #6c5ce7, #a29bfe);
       border: none;
       padding: 20px 48px;
       border-radius: 60px;
       font-weight: 700;
       font-size: 1.3rem;
-      color: #2D0A4E;
-      box-shadow: 0 7px 0 #00994d, 0 10px 30px rgba(0, 255, 127, 0.4);
+      color: #fff;
+      box-shadow: 0 7px 0 #4a3db8, 0 10px 30px rgba(108, 92, 231, 0.3);
       cursor: pointer;
       transition: all 0.1s ease;
       margin: 30px 0 10px;
@@ -149,17 +149,17 @@
       touch-action: manipulation;
       letter-spacing: 0.5px;
     }
-    .btn-primary:active { transform: translateY(5px); box-shadow: 0 2px 0 #00994d; }
+    .btn-primary:active { transform: translateY(5px); box-shadow: 0 2px 0 #4a3db8; }
     .sub-mystery {
       font-size: 1.05rem;
-      color: #fff;
-      background: rgba(255, 255, 255, 0.2);
+      color: #2D0A4E;
+      background: rgba(255, 255, 255, 0.7);
       padding: 12px 28px;
       border-radius: 60px;
       backdrop-filter: blur(4px);
       margin-top: 8px;
       font-weight: 500;
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
     /* LILY SCENE - FIXED with guaranteed image */
@@ -172,7 +172,7 @@
       text-align: center;
       padding: 20px;
       animation: fadeIn 1s ease;
-      background: linear-gradient(135deg, #ff1493, #ff69b4, #ffb6c1);
+      background: linear-gradient(135deg, #f8e8ff, #e8d5f5, #d4b8e0);
     }
     @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
     #lily-container {
@@ -182,7 +182,7 @@
       position: relative;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5), 0 0 60px rgba(255, 20, 147, 0.2);
+      box-shadow: 0 15px 40px rgba(108, 92, 231, 0.3), 0 0 60px rgba(108, 92, 231, 0.1);
       border: 5px solid #ffd700;
     }
     #lily-container img {
@@ -198,20 +198,19 @@
     .lily-text {
       font-size: 2.2rem;
       font-weight: 700;
-      color: #ffd700;
+      color: #2D0A4E;
       margin-top: 20px;
       font-family: 'Patrick Hand', cursive;
-      text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 2px 20px rgba(108, 92, 231, 0.2);
     }
     .lily-sub {
-      color: #fff;
+      color: #4a3db8;
       margin-top: 10px;
       font-size: 1.2rem;
       font-weight: 600;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
 
-    /* BALLOONS SCENE - SUPER VIBRANT */
+    /* BALLOONS SCENE */
     #scene-balloons {
       min-height: 80vh;
       display: flex;
@@ -221,15 +220,15 @@
       text-align: center;
       padding: 20px;
       position: relative;
-      background: linear-gradient(135deg, #1a0a2e, #2d0a4e, #4a0e6b);
+      background: linear-gradient(135deg, #f8e8ff, #e8d5f5);
     }
     #scene-balloons h2 {
-      color: #ffd700 !important;
-      text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+      color: #2D0A4E !important;
+      text-shadow: 0 2px 20px rgba(108, 92, 231, 0.2);
       font-size: 2.5rem !important;
     }
     #scene-balloons p {
-      color: #ff69b4 !important;
+      color: #4a3db8 !important;
       font-weight: 600;
       font-size: 1.1rem;
     }
@@ -260,7 +259,7 @@
       will-change: transform;
       border: 3px solid rgba(255,255,255,0.4);
       z-index: 15;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     }
     .balloon:hover { transform: scale(1.08) !important; }
     .balloon:active { transform: scale(0.85) !important; }
@@ -271,9 +270,9 @@
       left: 50%;
       width: 2px;
       height: 22px;
-      background: #ccc;
+      background: #7a5f45;
       transform: translateX(-50%);
-      opacity: 0.5;
+      opacity: 0.4;
     }
     .balloon.pop-anim {
       animation: popAnim 0.4s ease forwards;
@@ -286,10 +285,10 @@
       margin: 10px 0;
       font-size: 1.3rem;
       font-weight: 800;
-      color: #ffd700;
+      color: #2D0A4E;
       z-index: 15;
       position: relative;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      text-shadow: 0 2px 20px rgba(108, 92, 231, 0.2);
     }
 
     /* CAROUSEL */
@@ -300,7 +299,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: linear-gradient(135deg, #0d0512, #1a0a2e, #2d0a4e);
+      background: linear-gradient(135deg, #1a0a2e, #2d0a4e);
       position: relative;
     }
     .carousel-title {
@@ -311,7 +310,7 @@
       margin-bottom: 5px;
     }
     .carousel-sub {
-      color: #ff69b4;
+      color: #a29bfe;
       font-size: 0.9rem;
       margin-bottom: 15px;
     }
@@ -323,9 +322,9 @@
       margin: 10px auto;
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(255, 20, 147, 0.3), 0 0 80px rgba(255, 20, 147, 0.1);
+      box-shadow: 0 20px 60px rgba(108, 92, 231, 0.3), 0 0 80px rgba(108, 92, 231, 0.1);
       border: 3px solid rgba(255, 215, 0, 0.2);
-      background: #000;
+      background: #0d0512;
     }
     .carousel-slide {
       position: absolute;
@@ -346,9 +345,9 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255, 215, 0, 0.2);
+      background: rgba(255, 215, 0, 0.15);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 215, 0, 0.3);
+      border: 1px solid rgba(255, 215, 0, 0.2);
       color: #ffd700;
       font-size: 2.5rem;
       padding: 8px 18px;
@@ -360,7 +359,7 @@
       user-select: none;
     }
     .carousel-btn:hover {
-      background: rgba(255, 215, 0, 0.4);
+      background: rgba(255, 215, 0, 0.3);
       transform: translateY(-50%) scale(1.05);
     }
     .carousel-btn:active { transform: translateY(-50%) scale(0.95); }
@@ -400,7 +399,7 @@
       z-index: 5;
     }
 
-    /* CAKE SCENE - VIBRANT */
+    /* CAKE SCENE */
     #scene-cake {
       min-height: 70vh;
       display: flex;
@@ -411,11 +410,11 @@
       padding: 20px;
       position: relative;
       z-index: 10;
-      background: linear-gradient(135deg, #ff1493, #ff69b4, #ffb6c1);
+      background: linear-gradient(135deg, #f8e8ff, #e8d5f5);
     }
     #scene-cake p {
-      color: #ffd700 !important;
-      text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
+      color: #2D0A4E !important;
+      text-shadow: 0 2px 20px rgba(108, 92, 231, 0.2);
     }
     .cake-emoji {
       font-size: 100px;
@@ -438,10 +437,9 @@
     #blowMessage {
       margin: 20px 0;
       font-weight: 700;
-      color: #ffd700;
+      color: #2D0A4E;
       min-height: 30px;
       font-size: 1.1rem;
-      text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);
     }
 
     /* CELEBRATION POPUP */
@@ -453,7 +451,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
       opacity: 0;
       pointer-events: none;
@@ -464,7 +462,7 @@
       pointer-events: auto;
     }
     .popup-content {
-      background: linear-gradient(145deg, #ffd700, #ffb300);
+      background: linear-gradient(145deg, #ffd700, #f5c800);
       padding: 40px 50px;
       border-radius: 60px;
       text-align: center;
@@ -478,7 +476,7 @@
     .popup-content h2 {
       font-family: 'Patrick Hand', cursive;
       font-size: 2.8rem;
-      color: #6A0572;
+      color: #2D0A4E;
       margin-bottom: 16px;
     }
     .popup-content p {
@@ -500,11 +498,11 @@
       z-index: 10;
     }
     .letter-card {
-      background: linear-gradient(160deg, #fff5f5, #ffe8ec);
+      background: linear-gradient(160deg, #fff5f5, #f5e8ff);
       padding: 40px 32px;
       border-radius: 32px;
-      box-shadow: 0 25px 60px rgba(255, 20, 147, 0.2), 0 8px 30px rgba(0,0,0,0.1);
-      border: 3px solid #ff69b4;
+      box-shadow: 0 25px 60px rgba(108, 92, 231, 0.15), 0 8px 30px rgba(0,0,0,0.05);
+      border: 3px solid #a29bfe;
       position: relative;
       margin: 20px 0 40px;
       text-align: center;
@@ -528,9 +526,9 @@
     .letter-card h1 {
       font-size: 2.4rem;
       font-family: 'Patrick Hand', cursive;
-      color: #ff1493;
+      color: #6c5ce7;
       margin-bottom: 24px;
-      text-shadow: 0 2px 12px rgba(255, 20, 147, 0.1);
+      text-shadow: 0 2px 12px rgba(108, 92, 231, 0.1);
     }
     .letter-card p {
       font-size: 1.08rem;
@@ -539,24 +537,24 @@
       color: #2D0A4E;
     }
     .letter-card .highlight {
-      background: linear-gradient(120deg, rgba(255, 20, 147, 0.2), rgba(255, 20, 147, 0.05));
+      background: linear-gradient(120deg, rgba(108, 92, 231, 0.15), rgba(108, 92, 231, 0.05));
       padding: 2px 12px;
       border-radius: 30px;
       display: inline-block;
       font-weight: 700;
-      border-left: 3px solid #ff1493;
+      border-left: 3px solid #6c5ce7;
     }
     .letter-card .certificate {
-      background: linear-gradient(145deg, #ffd700, #ffb300);
-      border: 2px dashed #ff1493;
+      background: linear-gradient(145deg, #ffd700, #f5c800);
+      border: 2px dashed #6c5ce7;
       padding: 16px 24px;
       border-radius: 24px;
       margin: 24px 0;
       font-weight: 700;
       text-align: center;
-      box-shadow: inset 0 2px 8px rgba(255,20,147,0.08);
+      box-shadow: inset 0 2px 8px rgba(108,92,231,0.08);
       position: relative;
-      color: #6A0572;
+      color: #2D0A4E;
       display: inline-block;
       width: auto;
     }
@@ -568,7 +566,7 @@
       font-size: 20px;
     }
     .letter-card .warning-badge {
-      background: linear-gradient(145deg, #ff1493, #ff69b4);
+      background: linear-gradient(145deg, #ff6b9d, #ff1493);
       padding: 8px 20px;
       border-radius: 40px;
       display: inline-block;
@@ -602,11 +600,11 @@
       animation: pulseBadge 1.2s infinite;
     }
     .letter-card .prasad-card {
-      background: linear-gradient(145deg, #ffd700, #ffb300);
+      background: linear-gradient(145deg, #ffd700, #f5c800);
       padding: 8px 20px;
       border-radius: 40px;
       display: inline-block;
-      border: 1px solid #ff1493;
+      border: 1px solid #6c5ce7;
       font-weight: 600;
       box-shadow: inset 0 1px 4px rgba(255,255,255,0.4);
       color: #2D0A4E;
@@ -657,9 +655,9 @@
       backdrop-filter: blur(8px);
       border-radius: 60px;
       padding: 10px 18px;
-      box-shadow: 0 6px 24px rgba(255, 20, 147, 0.2);
+      box-shadow: 0 6px 24px rgba(108, 92, 231, 0.2);
       z-index: 100;
-      border: 2px solid #ff69b4;
+      border: 2px solid #a29bfe;
       display: flex;
       gap: 10px;
       font-size: 1.4rem;
@@ -716,7 +714,7 @@
   <!-- LILY SCENE - FIXED -->
   <div id="scene-lily" class="hidden">
     <div id="lily-container">
-      <img src="https://png.pngtree.com/png-vector/20260128/ourlarge/pngtree-bouquet-white-lilies-eucalyptus-leaves-elegant-wrap-ribbon-isolated-transparent-background-png-image_18659426.webp" alt="Beautiful Lily" id="lilyImage">
+      <img src="https://cdn.pixabay.com/photo/2015/04/25/13/41/lily-739570_640.jpg" alt="Beautiful Lily" id="lilyImage">
     </div>
     <div class="lily-text">🌷 Beautiful Lily</div>
     <div class="lily-sub">For you, Darshan 🐰<br>A little flower before the fun begins...</div>
@@ -753,7 +751,7 @@
       <span class="candle" id="candle2">🕯️</span>
       <span class="candle" id="candle3">🕯️</span>
     </div>
-    <button class="btn-primary" id="btnBlow" style="background: linear-gradient(145deg, #ff6b35, #ff4500); box-shadow: 0 7px 0 #cc3700, 0 10px 30px rgba(255, 69, 0, 0.4);">💨 BLOW THE CANDLES</button>
+    <button class="btn-primary" id="btnBlow" style="background: linear-gradient(145deg, #fd79a8, #e84393); box-shadow: 0 7px 0 #c0397a, 0 10px 30px rgba(232, 67, 147, 0.3);">💨 BLOW THE CANDLES</button>
     <div id="blowMessage"></div>
   </div>
 
@@ -777,7 +775,7 @@
       <p>You're not just my bestie. You're my comfort person, my biggest cheerleader, my personal entertainment source, and someone I know I can always count on.</p>
       <p>Now that all the emotional stuff is out of the way, let's discuss some very important facts about you.</p>
       <p><span class="highlight">First of all, stop acting like you're some giant giraffe. 🦒</span><br>Baal aur shoes hata do, phir pata chalega asli height kitni hai. 😭<br>Without the hair and shoes, you're actually just a <strong>chotu sa Bhondu Chuha</strong>. 🐭<br>All that height is apparently being sponsored by footwear and hair volume. Please stay humble.</p>
-      <div class="mouse-doodle">🐭✨🦒</div>
+      <div class="mouse-doodle">🐭✨</div>
       <p>Also, I am STILL gussa with you for unfairly manifesting my old address. I genuinely don't understand how you managed that, but congratulations, Bhondu. You have officially earned a permanent place on my list of complaints.</p>
       <div class="certificate">📜 OFFICIAL BESTIE BULLYING LICENSE<br>STATUS: PERMANENT · EXPIRY: NEVER</div>
       <p>Humare yaha aisa hi hota hai. Pyaar karenge, support karenge, hype karenge, care karenge, and then bully you for absolutely no reason. That's literally part of the friendship package.</p>
@@ -887,7 +885,7 @@
     initBalloons();
   });
 
-  // --- BALLOONS (SUPER VIBRANT) ---
+  // --- BALLOONS (VIBRANT) ---
   const balloonMessages = [
     'Pookie Bestie 💛', 'Bhondu Chuha 🐭', 'Lambu Giraffe 🦒',
     'Chat Treat Pending', 'BEHAVE.', 'Bhabhi Deadline 🚨', 'No Refunds.'
@@ -896,8 +894,8 @@
     '#FF1493', '#FFD700', '#00FF7F', '#00BFFF', '#FF4500', '#FF69B4', '#7B68EE'
   ];
   const balloonGlows = [
-    'rgba(255,20,147,0.4)', 'rgba(255,215,0,0.4)', 'rgba(0,255,127,0.4)',
-    'rgba(0,191,255,0.4)', 'rgba(255,69,0,0.4)', 'rgba(255,105,180,0.4)', 'rgba(123,104,238,0.4)'
+    'rgba(255,20,147,0.3)', 'rgba(255,215,0,0.3)', 'rgba(0,255,127,0.3)',
+    'rgba(0,191,255,0.3)', 'rgba(255,69,0,0.3)', 'rgba(255,105,180,0.3)', 'rgba(123,104,238,0.3)'
   ];
 
   function initBalloons() {
