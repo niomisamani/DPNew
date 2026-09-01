@@ -176,8 +176,8 @@
     }
     @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
     #lily-container {
-      width: 200px;
-      height: 200px;
+      width: 250px;
+      height: 250px;
       margin: 20px auto;
       position: relative;
     }
@@ -186,6 +186,8 @@
       height: 100%;
       object-fit: contain;
       animation: floatLily 3s ease-in-out infinite;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
     }
     @keyframes floatLily {
       0%, 100% { transform: translateY(0) scale(1); }
@@ -213,6 +215,7 @@
       justify-content: center;
       text-align: center;
       padding: 20px;
+      position: relative;
     }
     #balloon-container {
       position: relative;
@@ -240,6 +243,7 @@
       line-height: 1.2;
       will-change: transform;
       border: 2px solid rgba(255,255,255,0.3);
+      z-index: 5;
     }
     .balloon:hover { transform: scale(1.08); }
     .balloon:active { transform: scale(0.85); }
@@ -267,6 +271,37 @@
       font-weight: 600;
       color: #6A0572;
     }
+
+    /* PHOTO GALLERY - floating during balloons */
+    .photo-gallery {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .photo-item {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      border: 3px solid white;
+      object-fit: cover;
+      animation: floatPhoto 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes floatPhoto {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(30px, -20px) rotate(3deg); }
+      50% { transform: translate(-10px, 30px) rotate(-2deg); }
+      75% { transform: translate(20px, 10px) rotate(4deg); }
+    }
+    .photo-item:nth-child(odd) { animation-duration: 9s; }
+    .photo-item:nth-child(3n) { animation-duration: 7s; }
+    .photo-item:nth-child(5n+2) { animation-duration: 11s; }
 
     /* CAKE SCENE */
     #scene-cake {
@@ -542,12 +577,14 @@
       .popup-content { padding: 30px 20px; }
       .popup-content h2 { font-size: 2rem; }
       .balloon { width: 50px; height: 62px; font-size: 9px; }
-      #lily-container { width: 150px; height: 150px; }
+      #lily-container { width: 180px; height: 180px; }
+      .photo-item { width: 80px; height: 80px; }
     }
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
       .mouse-doodle { animation: none; }
       #lily-container img { animation: none; }
+      .photo-item { animation: none !important; }
     }
   </style>
 </head>
@@ -570,19 +607,22 @@
   <!-- LILY SCENE -->
   <div id="scene-lily" class="hidden">
     <div id="lily-container">
-      <img src="assets/lilly.png" alt="Beautiful Lily" id="lilyImage">
+      <img src="https://images.unsplash.com/photo-1587303777806-a2afc2e33db3?w=400&h=400&fit=crop&crop=center" alt="Beautiful Lily Bouquet" id="lilyImage">
     </div>
     <div class="lily-text">🌷 For you, Darshan 🌷</div>
     <div class="lily-sub">A little flower before the fun begins...</div>
     <button class="btn-primary" id="btnLilyNext" style="margin-top:30px;">🎈 Let's Pop Some Balloons!</button>
   </div>
 
-  <!-- BALLOONS SCENE -->
+  <!-- BALLOONS SCENE WITH PHOTO GALLERY -->
   <div id="scene-balloons" class="hidden">
     <h2 style="font-family:'Patrick Hand',cursive; color:#6A0572; font-size:2.2rem;">Pop the balloons! 🎈</h2>
     <p style="color:#6A0572; margin-bottom:10px;">Each one has a little message for you.</p>
     <div id="balloon-container"></div>
     <div class="balloon-progress" id="balloonProgress">0 / 7 popped</div>
+    
+    <!-- PHOTO GALLERY - floating photos -->
+    <div class="photo-gallery" id="photoGallery"></div>
   </div>
 
   <!-- CAKE SCENE -->
@@ -646,7 +686,7 @@
 
 <!-- MUSIC CONTROL -->
 <div class="music-control" id="musicControl">
-  <button id="playPauseBtn" aria-label="Play/Pause">⏸️</button>
+  <button id="playPauseBtn" aria-label="Play/Pause">▶️</button>
   <button id="muteBtn" aria-label="Mute/Unmute">🔊</button>
 </div>
 
@@ -669,6 +709,7 @@
   const btnBlow = document.getElementById('btnBlow');
   const blowMessage = document.getElementById('blowMessage');
   const btnLilyNext = document.getElementById('btnLilyNext');
+  const photoGallery = document.getElementById('photoGallery');
 
   let W, H;
   const resizeCanvas = () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; };
@@ -719,7 +760,48 @@
     sceneLily.classList.add('hidden');
     sceneBalloons.classList.remove('hidden');
     initBalloons();
+    initPhotoGallery();
   });
+
+  // --- PHOTO GALLERY ---
+  function initPhotoGallery() {
+    photoGallery.innerHTML = '';
+    // Try to load 1.png, 2.png, 3.png, 4.png from assets
+    const photoCount = 4;
+    const positions = [
+      {left: '5%', top: '10%'}, {left: '80%', top: '15%'}, 
+      {left: '10%', top: '60%'}, {left: '75%', top: '70%'}
+    ];
+    for (let i = 1; i <= photoCount; i++) {
+      const img = document.createElement('img');
+      img.className = 'photo-item';
+      img.src = `assets/${i}.png`;
+      img.alt = `Photo ${i}`;
+      img.style.left = positions[i-1].left;
+      img.style.top = positions[i-1].top;
+      // Randomize animation delay
+      img.style.animationDelay = (Math.random() * 2) + 's';
+      // Handle broken images - use fallback emoji
+      img.onerror = function() {
+        this.style.display = 'none';
+        // Create a fallback div with emoji
+        const fallback = document.createElement('div');
+        fallback.className = 'photo-item';
+        fallback.style.left = this.style.left;
+        fallback.style.top = this.style.top;
+        fallback.style.background = 'linear-gradient(145deg, #FFE4E1, #FFDAB9)';
+        fallback.style.display = 'flex';
+        fallback.style.alignItems = 'center';
+        fallback.style.justifyContent = 'center';
+        fallback.style.fontSize = '3rem';
+        fallback.textContent = '📸';
+        fallback.style.animationDelay = this.style.animationDelay;
+        this.parentNode.appendChild(fallback);
+        this.remove();
+      };
+      photoGallery.appendChild(img);
+    }
+  }
 
   // --- BALLOONS ---
   const balloonMessages = [
@@ -785,6 +867,7 @@
       if (balloonsPopped === totalBalloons) {
         setTimeout(() => {
           sceneBalloons.classList.add('hidden');
+          photoGallery.innerHTML = ''; // Clear photos
           sceneCake.classList.remove('hidden');
           blowMessage.textContent = '🎤 Now blow the candles!';
         }, 400);
