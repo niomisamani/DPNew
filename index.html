@@ -501,11 +501,26 @@
     }
 
     /* LETTER SCENE - CENTERED */
+/* LETTER SCENE - LILY BACKGROUND */
     #scene-letter {
-      padding: 20px 0;
+      min-height: 100vh;
+      padding: 40px 20px;
       position: relative;
       z-index: 10;
+    
+      background:
+        linear-gradient(
+          rgba(245, 230, 255, 0.72),
+          rgba(232, 213, 245, 0.78)
+        ),
+        url('lillies.png');
+    
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
+
     .letter-card {
       background: linear-gradient(160deg, #fff5f5, #f5e8ff);
       padding: 40px 32px;
