@@ -499,38 +499,34 @@
       padding: 14px 40px;
       font-size: 1.1rem;
     }
+/* LETTER SCENE - FULL LILY BACKGROUND */
+#scene-letter {
+  min-height: 100vh;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 10;
 
-    /* LETTER SCENE - CENTERED */
-/* LETTER SCENE - LILY BACKGROUND */
-    #scene-letter {
-      min-height: 100vh;
-      padding: 40px 20px;
-      position: relative;
-      z-index: 10;
-    
-      background:
-        linear-gradient(
-          rgba(245, 230, 255, 0.72),
-          rgba(232, 213, 245, 0.78)
-        ),
-        url('lillies.png');
-    
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
+  background-image: url('lillies.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 
     .letter-card {
-      background: linear-gradient(160deg, #fff5f5, #f5e8ff);
-      padding: 40px 32px;
-      border-radius: 32px;
-      box-shadow: 0 25px 60px rgba(108, 92, 231, 0.15), 0 8px 30px rgba(0,0,0,0.05);
-      border: 3px solid #a29bfe;
-      position: relative;
-      margin: 20px 0 40px;
-      text-align: center;
-    }
+  background: rgba(255, 248, 250, 0.92);
+  padding: 40px 32px;
+  border-radius: 32px;
+  box-shadow:
+    0 25px 60px rgba(108, 92, 231, 0.15),
+    0 8px 30px rgba(0, 0, 0, 0.05);
+  border: 3px solid #a29bfe;
+  position: relative;
+  margin: 20px 0 40px;
+  text-align: center;
+}
+
     .letter-card::before {
       content: '🌷';
       position: absolute;
