@@ -20,11 +20,12 @@
       margin: 0;
       padding: 16px;
     }
-    .app {
-      max-width: 820px;
-      width: 100%;
-      position: relative;
-    }
+  .app {
+  max-width: 820px;
+  width: 100%;
+  position: relative;
+}
+
     .hidden { display: none !important; }
 
     /* ENVELOPE */
@@ -499,33 +500,39 @@
       padding: 14px 40px;
       font-size: 1.1rem;
     }
-/* LETTER SCENE - FULL LILY BACKGROUND */
+/* LETTER SCENE - FULL SCREEN LILY BACKGROUND */
 #scene-letter {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   min-height: 100vh;
+
   padding: 40px 20px;
-  position: relative;
+  overflow-y: auto;
+
   z-index: 10;
 
   background-image: url('lillies.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
-
-    .letter-card {
-  background: rgba(255, 248, 250, 0.92);
+.letter-card {
+  background: rgba(255, 248, 250, 0.94);
   padding: 40px 32px;
   border-radius: 32px;
   box-shadow:
-    0 25px 60px rgba(108, 92, 231, 0.15),
-    0 8px 30px rgba(0, 0, 0, 0.05);
+    0 25px 60px rgba(0, 0, 0, 0.18),
+    0 8px 30px rgba(0, 0, 0, 0.08);
   border: 3px solid #a29bfe;
   position: relative;
-  margin: 20px 0 40px;
+  margin: 20px auto 40px;
   text-align: center;
+  max-width: 820px;
 }
+
 
     .letter-card::before {
       content: '🌷';
