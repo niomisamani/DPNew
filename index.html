@@ -789,7 +789,7 @@
       <p>Also, I am STILL gussa with you for unfairly manifesting my old address. I genuinely don't understand how you managed that, but congratulations, Bhondu. You have officially earned a permanent place on my list of complaints.</p>
       <div class="certificate">📜 OFFICIAL BESTIE BULLYING LICENSE<br>STATUS: PERMANENT · EXPIRY: NEVER</div>
       <p>Humare yaha aisa hi hota hai. Pyaar karenge, support karenge, hype karenge, care karenge, and then bully you for absolutely no reason. That's literally part of the friendship package.</p>
-      <p><span class="warning-badge">⚠️ PITTI PITTI ⚠️</span> — Agar kabhi phir se mujhe koi important baat LATE batayi na, toh PITTI PITTI. And please don't think 6-7 pushups will save you this time. 😭</p>
+      <p><span class="warning-badge">⚠️ PITTI PITTI ⚠️</span> -  Agar kabhi phir se mujhe koi important baat LATE batayi na, toh PITTI PITTI. And please don't think 6-7 pushups will save you this time. 😭</p>
       <p>Agar main already gussa hoon, then your tiny little pushup apology package is NOT going to be enough. So better behave if you don't want to give me another reason to be gussa. And haath upar karne ka and pyari shakal banake bachne ke baare mein toh sochna bhi mat. 😤</p>
       <p>Also, one more thing, Bhondu. <br>Har baar Devi Darshan nahi dengi. 😌<br>Zyada gussa dilaya na, toh is baar <span class="prasad-card">prasad mein methi paak milega</span>. So choose your actions wisely. You have been warned.</p>
       <div class="deadline-card">
@@ -802,7 +802,7 @@
       <p>I genuinely hope you get a life full of love, happiness, success and all the things you dream about. You deserve people around you who appreciate the kind of person you are and always remind you how loved you are.</p>
       <p>And yes, I will always be there to annoy you, bully you, support you, listen to you, and remind you when you're being an absolute Bhondu.</p>
       <p>On your birthday, I just want you to know that I love you, I adore you, and I am always rooting for you. I can't wait to see you grow, achieve everything you've worked for, and become the person you want to be. You deserve nothing less than the very best.</p>
-      <p><strong>You're permanently stuck with me, Pookie Bestie. There is no escape now.</strong><br>So stay happy. Stay hydrated. Keep smiling. Be a good gurl. Stop making kasams for everything. Tell me important things ON TIME. And please start working on that September bhabhi deadline. 😭</p>
+      <p><strong>You're permanently stuck with me, Pookie Bestie. There is no escape now.</strong><br>So stay happy. Stay hydrated. Keep smiling. Be a good gurl. Stop making kasams for everything. Tell me important things ON TIME. And please start working on that September bhabhi deadline. Sirf 7 din bache hai 😭</p>
       <p><strong>HAPPY BIRTHDAY ONCE AGAIN, DARSHUUUUUU!!! 🎂🎉</strong><br>Love you loads, my Bhondu Chuha. 🐭💛<br>Now go enjoy your day, you absolute legend.<br>And remember, behave yourself. Because Devi Darshan is not guaranteed every time. 😌</p>
     </div>
   </div>
@@ -980,47 +980,88 @@
 
   // --- IMAGE CAROUSEL ---
   function initCarousel() {
-    const existingSlides = carouselContainer.querySelectorAll('.carousel-slide');
-    existingSlides.forEach(s => s.remove());
+    const existingSlides =
+      carouselContainer.querySelectorAll('.carousel-slide');
+  
+    existingSlides.forEach((slide) => slide.remove());
     carouselDots.innerHTML = '';
-
-    for (let i = 1; i <= totalSlides; i++) {
+  
+    // Load images in reverse order:
+    // 6.jpeg → 5.jpeg → 4.jpeg → 3.jpeg → 2.jpeg → 1.jpeg
+    for (let i = totalSlides; i >= 1; i--) {
       const img = document.createElement('img');
+  
       img.className = 'carousel-slide';
-      if (i === 1) img.classList.add('active');
+  
+      // Make the last numbered image (6.jpeg) the first active slide
+      if (i === totalSlides) {
+        img.classList.add('active');
+      }
+  
       img.src = `assets/${i}.jpeg`;
       img.alt = `Photo ${i}`;
       img.style.objectFit = 'contain';
-      img.onerror = function() {
+  
+      img.onerror = function () {
         this.style.display = 'none';
+  
         const fallback = document.createElement('div');
+  
         fallback.className = 'carousel-slide';
-        if (i === 1) fallback.classList.add('active');
-        fallback.style.background = `linear-gradient(135deg, hsl(${i * 60}, 80%, 60%), hsl(${i * 60 + 40}, 80%, 40%))`;
+  
+        // Make the fallback for 6.jpeg active initially
+        if (i === totalSlides) {
+          fallback.classList.add('active');
+        }
+  
+        fallback.style.background =
+          `linear-gradient(
+            135deg,
+            hsl(${i * 60}, 80%, 60%),
+            hsl(${i * 60 + 40}, 80%, 40%)
+          )`;
+  
         fallback.style.display = 'flex';
         fallback.style.alignItems = 'center';
         fallback.style.justifyContent = 'center';
         fallback.style.color = 'white';
         fallback.style.fontSize = '2rem';
+  
         fallback.textContent = `📸 Photo ${i}`;
+  
         this.parentNode.insertBefore(fallback, this);
         this.remove();
       };
-      carouselContainer.insertBefore(img, carouselContainer.querySelector('.carousel-glow'));
+  
+      carouselContainer.insertBefore(
+        img,
+        carouselContainer.querySelector('.carousel-glow')
+      );
     }
-
+  
+    // Create carousel dots
     for (let i = 0; i < totalSlides; i++) {
       const dot = document.createElement('div');
+  
       dot.className = 'carousel-dot';
-      if (i === 0) dot.classList.add('active');
+  
+      // First dot represents 6.jpeg
+      if (i === 0) {
+        dot.classList.add('active');
+      }
+  
       dot.dataset.index = i;
-      dot.addEventListener('click', function() {
+  
+      dot.addEventListener('click', function () {
         goToSlide(parseInt(this.dataset.index));
       });
+  
       carouselDots.appendChild(dot);
     }
-
+  
+    // Start from the first slide (6.jpeg)
     currentSlide = 0;
+  
     startAutoPlay();
   }
 
